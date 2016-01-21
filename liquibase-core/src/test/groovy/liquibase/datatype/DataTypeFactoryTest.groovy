@@ -139,6 +139,8 @@ public class DataTypeFactoryTest extends Specification {
         "[varchar](8000)"                                    | new MSSQLDatabase()   | "[varchar](8000)"                                    | VarcharType   | false
         "varchar(MAX)"                                       | new MSSQLDatabase()   | "[varchar](MAX)"                                     | VarcharType   | false
         "[varchar](MAX)"                                     | new MSSQLDatabase()   | "[varchar](MAX)"                                     | VarcharType   | false
+        "varchar(16000)"                                     | new MSSQLDatabase()   | "[varchar](MAX)"                                     | VarcharType   | false
+        "[varchar](16000)"                                   | new MSSQLDatabase()   | "[varchar](MAX)"                                     | VarcharType   | false
         "xml"                                                | new MSSQLDatabase()   | "[xml]"                                              | XMLType       | false
         "[xml]"                                              | new MSSQLDatabase()   | "[xml]"                                              | XMLType       | false
         "xml(CONTENT)"                                       | new MSSQLDatabase()   | "[xml](CONTENT)"                                     | XMLType       | false

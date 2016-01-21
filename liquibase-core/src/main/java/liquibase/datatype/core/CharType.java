@@ -20,10 +20,11 @@ public class CharType extends LiquibaseDataType {
             Object[] parameters = getParameters();
             if (parameters.length > 0) {
                 String param1 = parameters[0].toString();
+                Integer maxColumnLength = ((MSSQLDatabase) database).getMaxColumnLength();
                 if (!param1.matches("\\d+")
-                        || new BigInteger(param1).compareTo(BigInteger.valueOf(8000)) > 0) {
+                        || new BigInteger(param1).compareTo(BigInteger.valueOf(maxColumnLength)) > 0) {
 
-                    DatabaseDataType type = new DatabaseDataType(database.escapeDataTypeName("char"), 8000);
+                    DatabaseDataType type = new DatabaseDataType(database.escapeDataTypeName("char"), maxColumnLength);
                     type.addAdditionalInformation(getAdditionalInformation());
                     return type;
                 }

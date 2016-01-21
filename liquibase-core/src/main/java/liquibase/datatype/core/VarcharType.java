@@ -29,7 +29,7 @@ public class VarcharType extends CharType {
             if (parameters.length > 0) {
                 String param1 = parameters[0].toString();
                 if (!param1.matches("\\d+")
-                        || new BigInteger(param1).compareTo(BigInteger.valueOf(8000L)) > 0) {
+                        || new BigInteger(param1).compareTo(BigInteger.valueOf(((MSSQLDatabase) database).getMaxColumnLength())) > 0) {
 
                     try {
                         if (database.getDatabaseMajorVersion() <= 8) { //2000 or earlier

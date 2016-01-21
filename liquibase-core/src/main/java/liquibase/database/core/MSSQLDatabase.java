@@ -506,4 +506,8 @@ public class MSSQLDatabase extends AbstractJdbcDatabase {
 
         return sendsStringParametersAsUnicode == null ? true : sendsStringParametersAsUnicode;
     }
+
+    public Integer getMaxColumnLength() {
+        return 8000;
+    }
 }

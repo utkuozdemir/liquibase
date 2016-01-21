@@ -38,6 +38,15 @@ public class BlobType extends LiquibaseDataType {
                 } else if (parameters.length > 1) {
                     parameters = Arrays.copyOfRange(parameters, 0, 1);
                 }
+
+                if (parameters.length == 1) {
+                    String param1 = parameters[0].toString();
+                    boolean max = !param1.matches("\\d+")
+                            || new BigInteger(param1).compareTo(BigInteger.valueOf(((MSSQLDatabase) database).getMaxColumnLength())) > 0;
+                    if (max) {
+                        return new DatabaseDataType(database.escapeDataTypeName("varbinary"), "MAX");
+                    }
+                }
                 return new DatabaseDataType(database.escapeDataTypeName("varbinary"), parameters);
             }
             if (originalDefinition.equalsIgnoreCase("binary")
@@ -61,7 +70,7 @@ public class BlobType extends LiquibaseDataType {
             if (parameters.length > 0) {
                 String param1 = parameters[0].toString();
                 max = !param1.matches("\\d+")
-                        || new BigInteger(param1).compareTo(BigInteger.valueOf(8000L)) > 0;
+                        || new BigInteger(param1).compareTo(BigInteger.valueOf(((MSSQLDatabase) database).getMaxColumnLength())) > 0;
             }
             if (max) {
                 try {
